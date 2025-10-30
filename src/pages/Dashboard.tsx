@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
             <div className="w-full lg:w-[88%]">
               {/* Available Balance and Withdraw Button */}
               <div className="mb-6 flex flex-col sm:flex-row sm:items-center gap-4">
-                <div className="flex-1">
+                <div className="">
                   <div className="mb-2">
                     <p className="text-sm text-[#56616B]">Available Balance</p>
                   </div>
@@ -59,7 +59,7 @@ const Dashboard: React.FC = () => {
                     })}
                   </h1>
                 </div>
-                <div className="sm:ml-auto">
+                <div className="md:ml-[6%] sm:ml-auto">
                   <button className="w-full sm:w-auto px-8 py-3 bg-black hover:bg-gray-800 text-white rounded-full text-sm font-medium transition-colors">
                     Withdraw
                   </button>

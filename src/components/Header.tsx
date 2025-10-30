@@ -1,8 +1,20 @@
-import React, { useState } from "react";
-import { IoMenuOutline, IoClose } from "react-icons/io5";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  IoMenuOutline,
+  IoClose,
+  IoSettingsOutline,
+  IoWalletOutline,
+  IoGiftOutline,
+  IoExtensionPuzzleOutline,
+  IoBugOutline,
+  IoSwapHorizontalOutline,
+  IoLogOutOutline,
+} from "react-icons/io5";
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { icon: "/images/home.png", label: "Home", active: false },
@@ -11,6 +23,44 @@ const Header: React.FC = () => {
     { icon: "/images/group.png", label: "CRM", active: false },
     { icon: "/images/app.png", label: "Apps", active: false },
   ];
+
+  const userMenuItems = [
+    { icon: <IoSettingsOutline className="w-5 h-5" />, label: "Settings" },
+    {
+      icon: <IoWalletOutline className="w-5 h-5" />,
+      label: "Purchase History",
+    },
+    { icon: <IoGiftOutline className="w-5 h-5" />, label: "Refer and Earn" },
+    {
+      icon: <IoExtensionPuzzleOutline className="w-5 h-5" />,
+      label: "Integrations",
+    },
+    { icon: <IoBugOutline className="w-5 h-5" />, label: "Report Bug" },
+    {
+      icon: <IoSwapHorizontalOutline className="w-5 h-5" />,
+      label: "Switch Account",
+    },
+  ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setUserDropdownOpen(false);
+      }
+    };
+
+    if (userDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [userDropdownOpen]);
 
   return (
     <>
@@ -51,23 +101,90 @@ const Header: React.FC = () => {
           <span className="hidden sm:inline">
             <img src={"/images/chat.png"} alt={"notification-icon"} />
           </span>
-          <span className="flex bg-[#EFF1F6] hover:bg-gray-200 rounded-full p-[5px]">
-            <button className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold text-xs sm:text-sm">
-              OJ
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center transition-colors ml-[5px]"
-            >
-              <IoMenuOutline className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-            </button>
-          </span>
+          <div className="relative" ref={dropdownRef}>
+            <span className="flex bg-[#EFF1F6] hover:bg-gray-200 rounded-full p-[5px]">
+              <span className="flex bg-[#EFF1F6] hover:bg-gray-200 rounded-full p-[5px]">
+                <button
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm"
+                >
+                  OJ
+                </button>
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="w-7 h-7  flex items-center justify-center transition-colors ml-[5px]"
+                >
+                  <IoMenuOutline className="w-5 h-5 text-gray-700" />
+                </button>
+              </span>
+            </span>
+
+            {/* User Dropdown Menu */}
+            {userDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-[350px] bg-white rounded-2xl shadow-2xl border border-gray-200 py-2 z-50">
+                {/* User Info */}
+                <div className="px-4 py-3 border-b border-gray-100">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm">
+                      OJ
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-gray-900">
+                        Olivier Jones
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        olivierjones@gmail.com
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Menu Items */}
+                <div className="py-2">
+                  {userMenuItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setUserDropdownOpen(false);
+                        // Handle menu item click
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left"
+                    >
+                      <span className="text-gray-600">{item.icon}</span>
+                      <span className="text-sm text-gray-900">
+                        {item.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Sign Out */}
+                <div className="border-t border-gray-100 pt-2">
+                  <button
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      // Handle sign out
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left"
+                  >
+                    <span className="text-gray-600">
+                      <IoLogOutOutline className="w-5 h-5" />
+                    </span>
+                    <span className="text-sm text-gray-900">Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setMobileMenuOpen(false)}>
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setMobileMenuOpen(false)}
+        >
           <div
             className="fixed top-0 right-0 bottom-0 w-64 bg-white shadow-xl p-6"
             onClick={(e) => e.stopPropagation()}

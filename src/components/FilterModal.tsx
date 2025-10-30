@@ -11,13 +11,11 @@ import {
   QuickFilterType,
   TransactionType,
 } from "../store/slices/filterSlice";
-import { QUICK_FILTERS, TRANSACTION_TYPE_OPTIONS } from "../types";
-
-const TRANSACTION_STATUS_OPTIONS = [
-  { value: "successful", label: "Successful" },
-  { value: "pending", label: "Pending" },
-  { value: "failed", label: "Failed" },
-];
+import {
+  QUICK_FILTERS,
+  TRANSACTION_STATUS_OPTIONS,
+  TRANSACTION_TYPE_OPTIONS,
+} from "../types";
 
 const FilterModal: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -75,7 +73,7 @@ const FilterModal: React.FC = () => {
     dispatch(clearFilters());
     setStartDate(null);
     setEndDate(null);
-    setTransactionStatuses(["successful", "pending", "failed"]);
+    setTransactionStatuses([]);
   };
 
   const formatDateForInput = (date: Date | null) => {
@@ -144,7 +142,9 @@ const FilterModal: React.FC = () => {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
-          <h2 className="text-lg sm:text-xl font-semibold text-[#131316]">Filter</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-[#131316]">
+            Filter
+          </h2>
           <button
             onClick={() => dispatch(closeFilter())}
             className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
@@ -258,7 +258,9 @@ const FilterModal: React.FC = () => {
                     : "border border-gray-200"
                 }`}
               >
-                <span className="truncate pr-2">{getSelectedTransactionTypeLabel()}</span>
+                <span className="truncate pr-2">
+                  {getSelectedTransactionTypeLabel()}
+                </span>
                 {showTransactionTypeDropdown ? (
                   <IoChevronUp className="w-4 h-4 text-gray-600 flex-shrink-0" />
                 ) : (
@@ -317,7 +319,9 @@ const FilterModal: React.FC = () => {
                     : "border border-gray-200"
                 }`}
               >
-                <span className="truncate pr-2">{getSelectedTransactionStatusLabel()}</span>
+                <span className="truncate pr-2">
+                  {getSelectedTransactionStatusLabel()}
+                </span>
                 {showTransactionStatusDropdown ? (
                   <IoChevronUp className="w-4 h-4 text-gray-600 flex-shrink-0" />
                 ) : (

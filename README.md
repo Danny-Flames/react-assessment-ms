@@ -42,7 +42,7 @@ An assessment dashboard.
 
 ```bash
 # Clone the repository
-git clone Danny-Flames/react-assessment-ms
+git clone https://github.com/Danny-Flames/react-assessment-ms.git
 
 # Navigate to project directory
 cd mainstack-frontend-assessment

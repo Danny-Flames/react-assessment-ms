@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
   setChartData,
-  fetchDashboardData,
   fetchTransactions,
   fetchUserData,
+  fetchUserWalletDetails,
 } from "../store/slices/dashboardSlice";
 import { mockChartData } from "../data/mockData";
 import Sidebar from "../components/Sidebar";
@@ -26,6 +26,7 @@ const Dashboard: React.FC = () => {
     transactions,
     chartData,
     isLoading,
+    walletData
   } = useAppSelector((state) => state.dashboard);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchUserData());
+    dispatch(fetchUserWalletDetails());
     dispatch(
       fetchTransactions({
         startDate: "2024-01-01",
@@ -104,14 +106,14 @@ const Dashboard: React.FC = () => {
             <div className="w-full lg:w-80 lg:pl-3 space-y-3 lg:space-y-1">
               <BalanceCard
                 label="Ledger Balance"
-                amount={ledgerBalance}
+                amount={walletData?.ledger_balance}
                 hasInfo
               />
-              <BalanceCard label="Total Payout" amount={totalPayout} hasInfo />
-              <BalanceCard label="Total Revenue" amount={totalRevenue} hasInfo />
+              <BalanceCard label="Total Payout" amount={walletData?.total_payout} hasInfo />
+              <BalanceCard label="Total Revenue" amount={walletData?.total_revenue} hasInfo />
               <BalanceCard
                 label="Pending Payout"
-                amount={pendingPayout}
+                amount={walletData?.pending_payout}
                 hasInfo
               />
             </div>

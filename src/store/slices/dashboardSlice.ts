@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import dashboardApi, { Transaction, TransactionFilters } from "../../utils/dashboardApi";
-
+import dashboardApi, {
+  Transaction,
+  TransactionFilters,
+} from "../../utils/dashboardApi";
 
 interface DashboardState {
   availableBalance: number;
@@ -10,6 +12,13 @@ interface DashboardState {
   pendingPayout: number;
   transactions: Transaction[];
   userData: { first_name: string; last_name: string; email: string };
+  walletData: {
+    balance: number;
+    total_payout: number;
+    total_revenue: number;
+    pending_payout: number;
+    ledger_balance: number;
+  };
   chartData: Array<{ date: string; value: number }>;
   isLoading: boolean;
   error: string | null;
@@ -22,7 +31,14 @@ const initialState: DashboardState = {
   totalRevenue: 175580.0,
   pendingPayout: 0.0,
   transactions: [],
-  userData: { first_name: '', last_name: '', email: ''},
+  userData: { first_name: "", last_name: "", email: "" },
+  walletData: {
+    balance: 0,
+    total_payout: 0,
+    total_revenue: 0,
+    pending_payout: 0,
+    ledger_balance: 0,
+  },
   chartData: [],
   isLoading: false,
   error: null,
@@ -62,7 +78,20 @@ export const fetchUserData = createAsyncThunk(
       const response = await dashboardApi.getUser();
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || "Failed to fetch transactions");
+      return rejectWithValue(error.message || "Failed to fetch user data");
+    }
+  }
+);
+
+// Fetch user wallet details
+export const fetchUserWalletDetails = createAsyncThunk(
+  "dashboard/fetchUserWalletDetails",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await dashboardApi.getUserWalletDetails();
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message || "Failed to fetch wallet details");
     }
   }
 );
@@ -109,7 +138,7 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log('transactions-fetched', action.payload);
+        console.log("transactions-fetched", action.payload);
         state.transactions = action.payload;
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
@@ -127,6 +156,20 @@ const dashboardSlice = createSlice({
         state.userData = action.payload;
       })
       .addCase(fetchUserData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+
+      // Fetch User Wallet Details
+      .addCase(fetchUserWalletDetails.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserWalletDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.walletData = {...action.payload};
+      })
+      .addCase(fetchUserWalletDetails.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

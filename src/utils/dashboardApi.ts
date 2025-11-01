@@ -41,6 +41,14 @@ export interface UserData {
   email: string;
 }
 
+export interface walletData {
+  balance: number;
+  total_payout: number;
+  total_revenue: number;
+  pending_payout: number;
+  ledger_balance: number;
+}
+
 // Filter parameters for transactions
 export interface TransactionFilters {
   startDate?: string;
@@ -68,6 +76,12 @@ export const dashboardApi = {
   //  Get user data
   getUser: async (): Promise<UserData> => {
     const response = await api.get<UserData>("/user");
+    return response.data;
+  },
+
+  //  Get user wallet details
+  getUserWalletDetails: async (): Promise<walletData> => {
+    const response = await api.get<walletData>("/wallet");
     return response.data;
   },
 };

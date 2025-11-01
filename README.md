@@ -1,6 +1,6 @@
 # Frontend Assessment - Dashboard Application
 
-A modern, responsive React TypeScript dashboard application built with Vite, Redux Toolkit, and Tailwind CSS. Features real-time data visualization, transaction management, and comprehensive filtering capabilities.
+An assessment dashboard.
 
 ## Features
 

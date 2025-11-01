@@ -19,10 +19,6 @@ const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
   const {
     availableBalance,
-    ledgerBalance,
-    totalPayout,
-    totalRevenue,
-    pendingPayout,
     transactions,
     chartData,
     isLoading,
@@ -41,14 +37,7 @@ const Dashboard: React.FC = () => {
     dispatch(fetchUserData());
     dispatch(fetchUserWalletDetails());
     dispatch(
-      fetchTransactions({
-        startDate: "2024-01-01",
-        endDate: "2024-12-31",
-        transactionTypes: ["store_transaction", "get_tipped", "withdrawals"],
-        transactionStatuses: ["successful", "pending", "failed"],
-        page: 1,
-        perPage: 20,
-      })
+      fetchTransactions()
     );
   }, [dispatch]);
 

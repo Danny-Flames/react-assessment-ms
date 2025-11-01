@@ -60,7 +60,7 @@ export const fetchDashboardData = createAsyncThunk(
 // Fetch transactions with optional filters
 export const fetchTransactions = createAsyncThunk(
   "dashboard/fetchTransactions",
-  async (filters: TransactionFilters, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await dashboardApi.getTransactions();
       return response;
@@ -125,6 +125,7 @@ const dashboardSlice = createSlice({
       })
       .addCase(fetchDashboardData.fulfilled, (state, action) => {
         state.isLoading = false;
+        console.log('fetchDashboardData', action?.payload);
       })
       .addCase(fetchDashboardData.rejected, (state, action) => {
         state.isLoading = false;

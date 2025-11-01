@@ -1,5 +1,5 @@
 import React from "react";
-import { IoFunnelOutline, IoDownloadOutline } from "react-icons/io5";
+import { IoFunnelOutline } from "react-icons/io5";
 import TransactionItem from "./TransactionItem";
 import { useAppDispatch } from "../store/hooks";
 import { toggleFilter } from "../store/slices/filterSlice";

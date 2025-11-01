@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# Frontend Assessment - Dashboard Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive React TypeScript dashboard application built with Vite, Redux Toolkit, and Tailwind CSS. Features real-time data visualization, transaction management, and comprehensive filtering capabilities.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Dashboard** - Live balance tracking and transaction monitoring
+- **Interactive Charts** - Smooth animated line charts with Recharts
+- **Advanced Filtering** - Date range selection, transaction type and status filtering
+- **Transaction Management** - View, filter, and export transactions
+- **Responsive Design** - Seamless experience across desktop, tablet, and mobile
+- **Modern UI/UX** - Clean interface with smooth animations and skeleton loaders
+- **State Management** - Centralized state with Redux Toolkit
+- **API Integration** - Full TypeScript API layer with Axios
+- **Type Safety** - Complete TypeScript implementation
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Core
+- **React**
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
 
-## Expanding the ESLint configuration
+### State Management
+- **Redux Toolkit** - State management
+- **React Redux** - React bindings for Redux
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Styling
+- **Tailwind CSS** - Utility-first CSS framework
+- **PostCSS** - CSS processing
+- **Autoprefixer** - CSS vendor prefixing
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Data & API
+- **Axios** - HTTP client for API requests
+- **Recharts** - Chart library for data visualization
+- **React DatePicker** - Date range selection
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Icons
+- **React Icons** - Icon library (Ionicons)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Installation
+
+```bash
+# Clone the repository
+git clone Danny-Flames/react-assessment-ms
+
+# Navigate to project directory
+cd mainstack-frontend-assessment
+
+# Install dependencies
+npm install
+
+# Create environment file and add this variable 'VITE_API_BASE_URL'
+
+# Update .env with your API URL
+VITE_API_BASE_URL=*****
+
+# Start development server
+npm run dev
+
+### Custom Hooks
+```typescript
+useApi(apiFunction, immediate) 
+useAppDispatch() // Typed Redux dispatch
+useAppSelector() // Typed Redux selector
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Author
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Danny-Flames
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```

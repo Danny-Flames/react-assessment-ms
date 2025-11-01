@@ -136,7 +136,7 @@ const FilterModal: React.FC = () => {
 
       {/* Modal */}
       <div
-        className={`fixed top-0 sm:top-4 right-0 sm:right-4 bottom-0 sm:bottom-4 w-full sm:w-[90vw] md:w-[70vw] lg:w-[50vw] xl:w-[35vw] bg-white shadow-2xl z-50 flex flex-col rounded-none sm:rounded-3xl transition-all duration-[1000ms] ease-in-out ${
+        className={`fixed top-0 sm:top-4 right-0 sm:right-4 bottom-0 sm:bottom-4 w-full sm:w-[90vw] md:w-[70vw] lg:w-[50vw] xl:w-[33vw] bg-white shadow-2xl z-50 flex flex-col rounded-none sm:rounded-3xl transition-all duration-[1000ms] ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-[110%]"
         }`}
       >

@@ -1,9 +1,9 @@
 import React from "react";
 import { IoFunnelOutline, IoDownloadOutline } from "react-icons/io5";
-import { Transaction } from "../types";
 import TransactionItem from "./TransactionItem";
 import { useAppDispatch } from "../store/hooks";
 import { toggleFilter } from "../store/slices/filterSlice";
+import { Transaction } from "../utils/dashboardApi";
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -18,9 +18,9 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
       <div className="py-4 md:px-0 sm:py-6 sm:px-6 border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-1">
           <h2 className="text-lg sm:text-xl font-[700] text-gray-900">
-            {transactions.length} Transaction
+            {transactions?.length} Transaction
             <span className="text-[#56616B]">
-              {transactions.length !== 1 ? "s" : ""}
+              {transactions?.length !== 1 ? "s" : ""}
             </span>
           </h2>
           <div className="flex items-center gap-2 sm:gap-3">
@@ -48,10 +48,10 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
       </div>
 
       {/* Transaction List */}
-      {transactions.length > 0 ? (
+      {transactions?.length > 0 ? (
         <div className="divide-y divide-gray-100">
-          {transactions.map((transaction) => (
-            <TransactionItem key={transaction.id} transaction={transaction} />
+          {transactions.map((transaction, index) => (
+            <TransactionItem key={index + 1} transaction={transaction} />
           ))}
         </div>
       ) : (

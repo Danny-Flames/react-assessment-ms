@@ -1,5 +1,5 @@
 import React from "react";
-import { Transaction } from "../types";
+import { Transaction } from "../utils/dashboardApi";
 
 interface TransactionItemProps {
   transaction: Transaction;
@@ -29,8 +29,8 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
       {/* Status Icon */}
       <span>
         <img
-          src={transaction.status == "successful" ? "/images/success_icon.png" : "/images/failed_icon.png"}
-          alt={`menu-icon-${transaction.id
+          src={transaction?.type == "deposit" ? "/images/success_icon.png" : "/images/failed_icon.png"}
+          alt={`menu-icon-${transaction?.date
 
           }`}
         />
@@ -39,18 +39,18 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
       {/* Transaction Details */}
       <div className="flex-1 min-w-0">
         <h4 className="text-sm font-medium text-gray-900 truncate">
-          {transaction.title}
+          {transaction?.metadata?.product_name || 'Nil'}
         </h4>
-        <p className="text-xs text-gray-500">{transaction.merchant}</p>
+        <p className="text-xs text-gray-500">{transaction?.status}</p>
       </div>
 
       {/* Amount and Date */}
       <div className="text-right flex-shrink-0">
         <div className="text-sm font-semibold text-gray-900">
-          {formatCurrency(transaction.amount)}
+          {formatCurrency(transaction?.amount)}
         </div>
         <div className="text-xs text-gray-500">
-          {formatDate(transaction.date)}
+          {formatDate(transaction?.date)}
         </div>
       </div>
     </div>

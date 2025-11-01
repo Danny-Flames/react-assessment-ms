@@ -17,6 +17,11 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked::before {
   background-color: #000000;
 }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
  
 /* Custom date picker styles */
 @layer components {

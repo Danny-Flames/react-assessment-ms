@@ -10,11 +10,15 @@ import {
   IoSwapHorizontalOutline,
   IoLogOutOutline,
 } from "react-icons/io5";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { getInitials } from "../helpers/generic";
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const { userData, isLoading } = useAppSelector((state) => state.dashboard);
 
   const navItems = [
     { icon: "/images/home.png", label: "Home", active: false },
@@ -103,16 +107,19 @@ const Header: React.FC = () => {
           </span>
           <div className="relative" ref={dropdownRef}>
             <span className="flex bg-[#EFF1F6] hover:bg-gray-200 rounded-full p-[5px]">
-              <span className="flex bg-[#EFF1F6] hover:bg-gray-200 rounded-full p-[5px]">
+              <span className="flex bg-[#EFF1F6] hover:bg-gray-200 rounded-full p-[3px]">
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm"
+                  className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm"
                 >
-                  OJ
+                  {getInitials(
+                    `${userData?.first_name}`,
+                    `${userData?.last_name}`
+                  )}
                 </button>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="w-7 h-7  flex items-center justify-center transition-colors ml-[5px]"
+                  className="w-6 h-6  flex items-center justify-center transition-colors ml-[8px]"
                 >
                   <IoMenuOutline className="w-5 h-5 text-gray-700" />
                 </button>
@@ -126,15 +133,20 @@ const Header: React.FC = () => {
                 <div className="px-4 py-3 border-b border-gray-100">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-semibold text-sm">
-                      OJ
+                      {isLoading
+                        ? ".."
+                        : getInitials(
+                            `${userData?.first_name}`,
+                            `${userData?.last_name}`
+                          )}
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">
-                        Olivier Jones
+                        {isLoading
+                          ? "Loading..."
+                          : `${userData?.first_name} ${userData?.last_name}`}
                       </p>
-                      <p className="text-xs text-gray-500">
-                        olivierjones@gmail.com
-                      </p>
+                      <p className="text-xs text-gray-500">{userData?.email}</p>
                     </div>
                   </div>
                 </div>
@@ -146,7 +158,6 @@ const Header: React.FC = () => {
                       key={index}
                       onClick={() => {
                         setUserDropdownOpen(false);
-                        // Handle menu item click
                       }}
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left"
                     >
@@ -163,7 +174,6 @@ const Header: React.FC = () => {
                   <button
                     onClick={() => {
                       setUserDropdownOpen(false);
-                      // Handle sign out
                     }}
                     className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left"
                   >

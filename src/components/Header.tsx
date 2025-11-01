@@ -10,7 +10,7 @@ import {
   IoSwapHorizontalOutline,
   IoLogOutOutline,
 } from "react-icons/io5";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../store/hooks";
 import { getInitials } from "../helpers/generic";
 
 const Header: React.FC = () => {

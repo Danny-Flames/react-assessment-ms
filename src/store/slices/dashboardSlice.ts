@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import dashboardApi, {
   Transaction,
-  TransactionFilters,
 } from "../../utils/dashboardApi";
 
 interface DashboardState {

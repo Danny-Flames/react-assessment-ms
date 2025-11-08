@@ -124,6 +124,9 @@ const FilterModal: React.FC = () => {
       .join(", ");
   };
 
+  const isApplyDisabled =
+    transactionTypes.length === 0 || transactionStatuses.length === 0;
+
   return (
     <>
       {/* Backdrop */}
@@ -366,7 +369,12 @@ const FilterModal: React.FC = () => {
           </button>
           <button
             onClick={handleApply}
-            className="flex-1 px-4 py-3 sm:py-4 bg-black hover:bg-gray-800 rounded-full text-sm font-medium text-white transition-colors"
+            disabled={isApplyDisabled}
+            className={`flex-1 px-4 py-3 sm:py-4 rounded-full text-sm font-medium transition-colors ${
+              isApplyDisabled
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-black hover:bg-gray-800 text-white"
+            }`}
           >
             Apply
           </button>

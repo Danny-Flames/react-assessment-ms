@@ -19,7 +19,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-1">
           <h2 className="text-lg sm:text-xl font-[700] text-gray-900">
             {transactions?.length} Transaction
-            <span className="text-[#56616B]">
+            <span>
               {transactions?.length !== 1 ? "s" : ""}
             </span>
           </h2>

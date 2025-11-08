@@ -141,7 +141,7 @@ const FilterModal: React.FC = () => {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-4 sm:p-6">
           <h2 className="text-lg sm:text-xl font-semibold text-[#131316]">
             Filter
           </h2>
@@ -357,7 +357,7 @@ const FilterModal: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="p-4 sm:p-6 border-t border-gray-200 flex items-center gap-3">
+        <div className="p-4 sm:p-6 flex items-center gap-3">
           <button
             onClick={handleClear}
             className="flex-1 px-4 py-3 sm:py-4 bg-gray-100 hover:bg-gray-200 rounded-full text-sm font-medium text-[#131316] transition-colors"
